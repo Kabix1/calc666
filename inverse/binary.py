@@ -1,23 +1,29 @@
 #!/usr/bin/env python
 
 
-def multiplication(factor=1, summand=0):
+def multiplication(operation1=lambda x:x, inverse1=lambda x:[x],
+                   operation2=lambda x:x, inverse2=lambda x:[x],
+                   summand=0):
     def inverse(total, arg):
-        return [((total - summand) / factor) / arg]
-    return inverse
-
-
-def division(operator1=lambda x:x, inverse1=lambda x:[x], operator2=lambda x:x, inverse2=lambda x:[x]):
-    def inverse(total, arg):
-        ret = inverse2(total * operator1(arg))
-        ret.extend(inverse1(operator2(arg) / total))
+        ret = inverse2((total - summand) / operation1(arg))
+        ret.extend(inverse1((total - summand) / operation2(arg)))
         return list(set(ret))
     return inverse
 
 
-def sum(operator1, inverse1, operator2, inverse2):
+def division(operation1=lambda x:x, inverse1=lambda x:[x],
+             operation2=lambda x:x, inverse2=lambda x:[x]):
     def inverse(total, arg):
-        ret = inverse2(total - operator1(arg))
-        ret.extend(inverse1(total - operator2(arg)))
+        ret = inverse2(total * operation1(arg))
+        ret.extend(inverse1(operation2(arg) / total))
+        return list(set(ret))
+    return inverse
+
+
+def sum(operation1=lambda x:x, inverse1=lambda x:[x],
+             operation2=lambda x:x, inverse2=lambda x:[x]):
+    def inverse(total, arg):
+        ret = inverse2(total - operation1(arg))
+        ret.extend(inverse1(total - operation2(arg)))
         return list(set(ret))
     return inverse

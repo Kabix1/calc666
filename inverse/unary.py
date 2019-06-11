@@ -26,3 +26,20 @@ def factorial():
             arg += 1
         return []
     return inverse
+
+
+def multiply_digits():
+    def inverse(arg):
+
+        return result
+    return inverse
+
+
+def multiply_digits():
+    def inverse(arg):
+        prime_factors = get_prime_factors(arg)
+        if len(list(filter(lambda x: x>=10, prime_factors))):
+            return []
+        result = [int("".join(map(str, prime_factors)))]
+        return result
+    return inverse

@@ -1,10 +1,21 @@
 #!/usr/bin/env python
+import sequences
 
 def get_factors(num):
     factors = []
     for i in range(2, int(num/2) + 1):
         if not num%i:
             factors.append(i)
+    return factors
+
+def get_prime_factors(num):
+    primes = sequences.primes(int(num/2))
+    factors = []
+    for prime in primes:
+        if prime > num:
+            break
+        if not num%prime:
+            factors.append(prime)
     return factors
 
 def breadth_first(calc, filter, depth=4):
@@ -31,3 +42,4 @@ def factorial_inverse(num):
             num2 /= i
         if num2 == 1:
             return i
+
